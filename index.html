@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#12131a" />
+  <meta name="description" content="SÚC CORP – Annual Growth Report | Sự kiện đặc biệt mừng sinh nhật 31.10" />
+  <title>SÚC CORP – Annual Growth Report | 31.10 Happy Birthday, Súc!</title>
+
+  <!-- Google Fonts hỗ trợ tiếng Việt tốt và phong cách tài chính hiện đại -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="locked-scroll">
+
+  <!-- Canvas hiệu ứng pháo giấy (Confetti) -->
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <!-- Nền trang trí Halloween & Kinh tế -->
+  <div class="ambient-bg" aria-hidden="true">
+    <div class="glow-orb orb-orange"></div>
+    <div class="glow-orb orb-lavender"></div>
+    <div class="floating-symbol sym-1">🎃</div>
+    <div class="floating-symbol sym-2">📈</div>
+    <div class="floating-symbol sym-3">✨</div>
+    <div class="floating-symbol sym-4">🌙</div>
+    <div class="floating-symbol sym-5">💎</div>
+  </div>
+
+  <!-- ==========================================
+       TƯƠNG TÁC 1: MÀN HÌNH CHÀO MỪNG (WELCOME GATE)
+       ========================================== -->
+  <section id="welcome-screen" class="welcome-screen" role="dialog" aria-labelledby="welcome-title">
+    <div class="welcome-card">
+      <div class="welcome-moon-wrap">
+        <div class="halloween-moon" id="welcome-moon" title="Mặt trăng đêm 31/10">
+          <span class="moon-crater c1"></span>
+          <span class="moon-crater c2"></span>
+          <span class="moon-bat">🦇</span>
+        </div>
+      </div>
+
+      <div class="event-badge">
+        <span class="pulse-dot"></span>
+        <span>SPECIAL EVENT • HALLOWEEN EDITION</span>
+      </div>
+
+      <p class="corp-subtitle">SÚC CORP – ANNUAL GROWTH REPORT</p>
+      <h1 id="welcome-title" class="welcome-title">
+        31.10 – HAPPY BIRTHDAY, <span class="text-gradient">SÚC!</span>
+      </h1>
+
+      <p class="welcome-desc">
+        Chào mừng Chủ tịch kiêm Cổ đông lớn nhất của <strong>SÚC CORP</strong>. 
+        Báo cáo tăng trưởng thường niên đặc biệt đêm 31/10 đã sẵn sàng công bố!
+      </p>
+
+      <div class="ticker-preview" aria-hidden="true">
+        <span>SUC3110 ▲ +311.0%</span>
+        <span>•</span>
+        <span>DEADLINE ▼ -99.9%</span>
+        <span>•</span>
+        <span>JOY ▲ ATH</span>
+      </div>
+
+      <button id="start-event-btn" class="btn-primary btn-large" type="button">
+        <span class="btn-icon">🚀</span>
+        <span>BẮT ĐẦU SỰ KIỆN</span>
+      </button>
+
+      <p class="welcome-note">
+        🎵 Nhấn bắt đầu để mở khóa báo cáo & kích hoạt âm nhạc sự kiện
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PHẦN NỘI DUNG CHÍNH (MAIN APPLICATION)
+       ========================================== -->
+  <div id="app-content" class="app-content hidden-content">
+
+    <!-- Thanh điều hướng & Ticker cổ phiếu cố định -->
+    <header class="site-header">
+      <div class="header-inner container">
+        <button id="logo-easter-egg" class="brand-logo" type="button" title="Nhấn 5 lần để kiểm toán quỹ bí mật!">
+          <span class="brand-icon">🎃</span>
+          <div class="brand-text">
+            <span class="brand-name">SÚC CORP</span>
+            <span class="brand-code">NYSE: SUC3110</span>
+          </div>
+        </button>
+
+        <nav class="quick-nav" aria-label="Điều hướng nhanh">
+          <a href="#section-dashboard">Chỉ số</a>
+          <a href="#section-market">Thị trường</a>
+          <a href="#section-mission">Nhiệm vụ</a>
+          <a href="#section-gift">Hộp quà</a>
+          <a href="#section-cake">Thổi nến</a>
+        </nav>
+      </div>
+
+      <!-- Bảng chạy chỉ số chứng khoán vui nhộn -->
+      <div class="stock-ticker-bar" aria-label="Bảng tin chỉ số SÚC CORP">
+        <div class="ticker-track">
+          <span>📈 <strong>FRIENDSHIP:</strong> +999.9% (Đỉnh lịch sử)</span>
+          <span>🎃 <strong>HALLOWEEN BUFF:</strong> +310% Ma thuật</span>
+          <span>📉 <strong>ÁP LỰC & DEADLINE:</strong> -85.4% (Giảm phát sâu)</span>
+          <span>💎 <strong>GPA & KINH TẾ VĨ MÔ:</strong> Xu hướng tăng trưởng xanh</span>
+          <span>🍰 <strong>HAPPINESS DIVIDEND:</strong> Chia cổ tức 100% niềm vui</span>
+          <span>📈 <strong>FRIENDSHIP:</strong> +999.9% (Đỉnh lịch sử)</span>
+          <span>🎃 <strong>HALLOWEEN BUFF:</strong> +310% Ma thuật</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section class="hero-section container reveal-on-scroll">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="tag-pill">BÁO CÁO TÀI CHÍNH & PHÉP THUẬT NIÊN ĐỘ 31.10</div>
+            <h2 class="hero-heading">
+              Báo Cáo Tăng Trưởng Thường Niên <span class="highlight-orange">SÚC CORP</span>
+            </h2>
+            <p class="hero-lead">
+              Kính gửi nhà kinh tế học tương lai, người sinh ra vào đúng đêm hội Halloween 31/10. 
+              Dưới đây là toàn cảnh bức tranh tăng trưởng rực rỡ của bạn được tổng hợp bởi Hội đồng Quản trị Tình Bạn!
+            </p>
+            <div class="hero-stats-mini">
+              <div class="mini-stat">
+                <span class="mini-label">MÃ NIÊM YẾT</span>
+                <strong class="mini-val">SUC-3110</strong>
+              </div>
+              <div class="mini-stat">
+                <span class="mini-label">XẾP HẠNG TÍN NHIỆM</span>
+                <strong class="mini-val text-green">AAA+ (Tuyệt đối)</strong>
+              </div>
+              <div class="mini-stat">
+                <span class="mini-label">NGÀNH MŨI NHỌN</span>
+                <strong class="mini-val text-lavender">Kinh Tế Học</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="executive-card">
+              <div class="exec-card-header">
+                <span class="exec-badge">CEO PROFILE</span>
+                <span class="exec-date">31 OCT EDITION</span>
+              </div>
+              <div class="exec-avatar-wrap">
+                <div class="exec-avatar" aria-hidden="true">🎃</div>
+                <div class="exec-orbit-star">⭐</div>
+              </div>
+              <h3 class="exec-name">Biệt danh: SÚC</h3>
+              <p class="exec-role">Chuyên gia Kinh tế • Chủ tịch Hội Bạn Thân</p>
+              <div class="exec-metrics-row">
+                <div>
+                  <small>Độ uy tín</small>
+                  <strong>100%</strong>
+                </div>
+                <div>
+                  <small>Độ mặn</small>
+                  <strong>Vượt trần</strong>
+                </div>
+                <div>
+                  <small>Rủi ro</small>
+                  <strong>0.0%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TƯƠNG TÁC 2: BẢNG BÁO CÁO SÚC CORP (DASHBOARD)
+           ========================================== -->
+      <section id="section-dashboard" class="section-block container reveal-on-scroll">
+        <div class="section-header">
+          <span class="section-kicker">01 • KEY PERFORMANCE INDICATORS</span>
+          <h2 class="section-title">Bảng Báo Cáo Chỉ Số SÚC CORP</h2>
+          <p class="section-subtitle">
+            Nhấn vào từng thẻ chỉ số bên dưới để mở báo cáo kiểm toán chi tiết từ người bạn thân.
+          </p>
+        </div>
+
+        <div class="dashboard-grid" id="dashboard-grid">
+          <!-- Card 1: Friendship Index -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="friendship" aria-label="Xem chi tiết Friendship Index">
+            <div class="metric-top">
+              <span class="metric-icon">🤝</span>
+              <span class="metric-trend up">▲ +120% YoY</span>
+            </div>
+            <h3 class="metric-name">Friendship Index</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="99.9" data-decimals="1" data-suffix="%">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="100%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+
+          <!-- Card 2: Happiness Index -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="happiness" aria-label="Xem chi tiết Happiness Index">
+            <div class="metric-top">
+              <span class="metric-icon">✨</span>
+              <span class="metric-trend up">▲ Vượt đỉnh</span>
+            </div>
+            <h3 class="metric-name">Happiness Index</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="310" data-decimals="0" data-suffix=" pts">0 pts</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="95%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+
+          <!-- Card 3: Humor Index -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="humor" aria-label="Xem chi tiết Humor Index">
+            <div class="metric-top">
+              <span class="metric-icon">😂</span>
+              <span class="metric-trend up">▲ Kịch trần</span>
+            </div>
+            <h3 class="metric-name">Humor Index</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="100" data-decimals="0" data-suffix="%">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="100%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+
+          <!-- Card 4: Energy Index -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="energy" aria-label="Xem chi tiết Energy Index">
+            <div class="metric-top">
+              <span class="metric-icon">⚡</span>
+              <span class="metric-trend up">▲ +88.5%</span>
+            </div>
+            <h3 class="metric-name">Energy Index</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="96.5" data-decimals="1" data-suffix="%">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="96%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+
+          <!-- Card 5: Personal Growth -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="growth" aria-label="Xem chi tiết Personal Growth">
+            <div class="metric-top">
+              <span class="metric-icon">📚</span>
+              <span class="metric-trend up">▲ Bền vững</span>
+            </div>
+            <h3 class="metric-name">Personal Growth</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="250" data-decimals="0" data-suffix="%">0%</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="92%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+
+          <!-- Card 6: Market Value -->
+          <article class="metric-card" tabindex="0" role="button" data-metric="market" aria-label="Xem chi tiết Market Value">
+            <div class="metric-top">
+              <span class="metric-icon">💎</span>
+              <span class="metric-trend up">▲ Vô giá</span>
+            </div>
+            <h3 class="metric-name">Market Value</h3>
+            <div class="metric-value-wrap">
+              <span class="metric-counter" data-target="999" data-decimals="0" data-suffix="B+">0B+</span>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <div class="progress-fill" data-width="100%"></div>
+            </div>
+            <p class="metric-hint">Nhấn để xem phân tích chi tiết →</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TƯƠNG TÁC 3: PHÂN TÍCH THỊ TRƯỜNG (MARKET ANALYSIS)
+           ========================================== -->
+      <section id="section-market" class="section-block container reveal-on-scroll">
+        <div class="section-header">
+          <span class="section-kicker">02 • MACROECONOMIC ANALYSIS</span>
+          <h2 class="section-title">Phân Tích Thị Trường SÚC CORP</h2>
+          <p class="section-subtitle">
+            Nhấn chọn từng danh mục hoặc vuốt ngang trên thẻ nội dung để xem mô hình Kinh tế học dành riêng cho Súc.
+          </p>
+        </div>
+
+        <div class="market-wrapper">
+          <!-- Các nút chuyển Tab -->
+          <div class="market-tabs" role="tablist" aria-label="Các mục phân tích thị trường">
+            <button class="market-tab active" role="tab" aria-selected="true" data-tab="supply" type="button">
+              <span class="tab-code">01</span>
+              <span class="tab-label">SUPPLY</span>
+            </button>
+            <button class="market-tab" role="tab" aria-selected="false" data-tab="demand" type="button">
+              <span class="tab-code">02</span>
+              <span class="tab-label">DEMAND</span>
+            </button>
+            <button class="market-tab" role="tab" aria-selected="false" data-tab="profit" type="button">
+              <span class="tab-code">03</span>
+              <span class="tab-label">PROFIT</span>
+            </button>
+            <button class="market-tab" role="tab" aria-selected="false" data-tab="outlook" type="button">
+              <span class="tab-code">04</span>
+              <span class="tab-label">FUTURE OUTLOOK</span>
+            </button>
+          </div>
+
+          <!-- Khung hiển thị nội dung + Biểu đồ động (Hỗ trợ vuốt trên điện thoại) -->
+          <div class="market-display-card" id="market-swipe-area">
+            <div class="market-content-col">
+              <div class="market-badge" id="market-badge">NGUỒN CUNG TÍCH CỰC</div>
+              <h3 class="market-heading" id="market-heading">SUPPLY: Những điều tốt đẹp Súc mang đến</h3>
+              <p class="market-description" id="market-description">
+                Trong nền kinh tế tình bạn, Súc luôn là nguồn cung dồi dào những năng lượng tích cực, sự nhiệt tình và những pha tấu hài đúng lúc giúp giải cứu mọi cuộc trò chuyện khỏi suy thoái.
+              </p>
+              <ul class="market-list" id="market-list">
+                <li>Cung ứng không giới hạn những tiếng cười sảng khoái và sự lắng nghe chân thành.</li>
+                <li>Tác phong bạn thân chất lượng cao: có mặt đúng lúc, tâm lý và cực kỳ đáng tin cậy.</li>
+                <li>Mang lại hiệu ứng lan tỏa niềm vui cho mọi người xung quanh bất kể mùa thi cử.</li>
+              </ul>
+            </div>
+
+            <div class="market-chart-col">
+              <div class="chart-box">
+                <div class="chart-header">
+                  <span id="chart-title">BIỂU ĐỒ TĂNG TRƯỞNG NGUỒN CUNG</span>
+                  <span class="chart-live-tag">● LIVE DATA</span>
+                </div>
+                <svg class="econ-svg-chart" viewBox="0 0 320 160" role="img" aria-label="Biểu đồ minh họa tăng trưởng">
+                  <defs>
+                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#ff7b29" stop-opacity="0.45" />
+                      <stop offset="100%" stop-color="#ff7b29" stop-opacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Đường lưới -->
+                  <line x1="20" y1="30" x2="300" y2="30" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4" />
+                  <line x1="20" y1="80" x2="300" y2="80" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4" />
+                  <line x1="20" y1="130" x2="300" y2="130" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4" />
+                  <!-- Vùng phủ & Đường biểu đồ động -->
+                  <path id="chart-area-path" d="M20,130 C90,115 140,85 200,60 C245,40 275,25 300,18 L300,145 L20,145 Z" fill="url(#chartGrad)" />
+                  <path id="chart-line-path" d="M20,130 C90,115 140,85 200,60 C245,40 275,25 300,18" fill="none" stroke="#ff7b29" stroke-width="4" stroke-linecap="round" />
+                  <circle id="chart-end-dot" cx="300" cy="18" r="6" fill="#fdf8f2" stroke="#ff7b29" stroke-width="3" />
+                </svg>
+                <div class="chart-footer">
+                  <span>Q1</span>
+                  <span>Q2</span>
+                  <span>Q3</span>
+                  <span class="active-q">Q4 (31/10)</span>
+                </div>
+              </div>
+              <p class="swipe-tip">📱 Mẹo: Vuốt sang trái/phải hoặc nhấn các nút trên để chuyển mục</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TƯƠNG TÁC 4: BIRTHDAY MINI GAME
+           ========================================== -->
+      <section id="section-mission" class="section-block container reveal-on-scroll">
+        <div class="section-header">
+          <span class="section-kicker">03 • INTERACTIVE MINI GAME</span>
+          <h2 class="section-title">Giải Cứu Sinh Nhật – Birthday Mission</h2>
+          <p class="section-subtitle">
+            Đêm 31/10, <strong>5 ngôi sao may mắn</strong> của năm mới đang ẩn giấu trong khu vườn bí ngô SÚC CORP. Hãy chạm vào những quả bí ngô để thu thập đủ 5 ngôi sao!
+          </p>
+        </div>
+
+        <div class="game-container">
+          <div class="game-hud">
+            <div class="hud-progress">
+              <span class="hud-label">TIẾN ĐỘ NHIỆM VỤ:</span>
+              <strong id="star-counter-text" class="hud-count">0 / 5 ⭐</strong>
+            </div>
+
+            <div class="star-slots" id="star-slots" aria-label="Các ngôi sao đã thu thập">
+              <span class="star-slot">☆</span>
+              <span class="star-slot">☆</span>
+              <span class="star-slot">☆</span>
+              <span class="star-slot">☆</span>
+              <span class="star-slot">☆</span>
+            </div>
+
+            <button id="reset-game-btn" class="btn-secondary btn-small" type="button">
+              🔄 Đảo vị trí bí ngô
+            </button>
+          </div>
+
+          <p id="game-status-msg" class="game-status-msg">
+            👆 Chạm vào các quả bí ngô bên dưới để tìm đủ 5 ngôi sao phép thuật!
+          </p>
+
+          <!-- Lưới bí ngô tương tác -->
+          <div class="pumpkin-grid" id="pumpkin-grid" role="group" aria-label="Vườn bí ngô nhiệm vụ">
+            <!-- Được khởi tạo tự động bằng JavaScript để trộn ngẫu nhiên -->
+          </div>
+
+          <!-- Thông điệp bí mật mở khóa sau khi thắng game -->
+          <div id="mission-reward-box" class="mission-reward-box hidden-box" aria-live="polite">
+            <div class="reward-badge">🔓 ĐÃ MỞ KHÓA HỒ SƠ MẬT #3110</div>
+            <h3 class="reward-title">🎉 Chúc mừng Súc đã hoàn thành Birthday Mission!</h3>
+            <p class="reward-text">
+              <strong>Thông điệp bí mật từ Hội đồng Quản trị:</strong> Giống như cách bạn vừa thu thập trọn vẹn 5 ngôi sao giữa bãi mìn "Deadline" và "Lạm phát", chúc Súc bước sang tuổi mới luôn giữ vững cái đầu lạnh của dân Kinh tế và trái tim ấm áp của một người bạn tuyệt vời. Mọi mục tiêu lớn nhỏ trong năm nay đều sẽ bị bạn chinh phục gọn gàng!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TƯƠNG TÁC 5: HỘP QUÀ BÍ MẬT & LỜI CHÚC SINH NHẬT
+           ========================================== -->
+      <section id="section-gift" class="section-block container reveal-on-scroll">
+        <div class="section-header">
+          <span class="section-kicker">04 • SPECIAL DIVIDEND PACKAGE</span>
+          <h2 class="section-title">Hộp Quà Bí Mật Đêm 31/10</h2>
+          <p class="section-subtitle">
+            Một gói cổ tức tinh thần đặc biệt đã được niêm phong. Hãy chạm vào hộp quà bên dưới để mở!
+          </p>
+        </div>
+
+        <div class="gift-stage">
+          <button id="gift-box-btn" class="gift-box-trigger" type="button" aria-expanded="false" aria-label="Nhấn để mở hộp quà sinh nhật">
+            <div class="gift-sparkles" aria-hidden="true">
+              <span>✨</span><span>⭐</span><span>🎃</span><span>✨</span>
+            </div>
+            <div class="gift-box-visual" id="gift-box-visual">
+              <div class="gift-lid">
+                <div class="gift-bow"></div>
+              </div>
+              <div class="gift-body">
+                <div class="gift-ribbon-v"></div>
+                <span class="gift-tag">SÚC 31.10</span>
+              </div>
+            </div>
+            <span class="gift-cta-text" id="gift-cta-text">🎁 Nhấn vào hộp quà để khui!</span>
+          </button>
+
+          <!-- Bức thư chúc mừng sinh nhật xuất hiện khi mở quà -->
+          <article id="secret-letter" class="secret-letter hidden-box" aria-live="polite">
+            <div class="letter-header">
+              <span class="letter-stamp">🎃 31.10 VERIFIED</span>
+              <span class="letter-code">FROM: BẠN THÂN • TO: SÚC</span>
+            </div>
+
+            <h3 class="letter-greeting">Gửi Súc – Nhà kinh tế học sinh nhật đêm Halloween!</h3>
+
+            <div class="letter-body">
+              <p>
+                Chúc mừng sinh nhật ngày 31/10! Vậy là báo cáo thường niên của <strong>SÚC CORP</strong> lại chính thức khép lại một năm cũ để bước sang chu kỳ tăng trưởng mới rực rỡ hơn.
+              </p>
+              <p>
+                Trước hết, chúc bạn tuổi mới luôn dồi dào sức khỏe, lúc nào cũng giữ được nguồn năng lượng vui vẻ và nụ cười tươi rói. Chúc cho chặng đường học đại học ngành <strong>Kinh tế</strong> của Súc luôn thuận buồm xuôi gió: học môn nào hiểu sâu môn đó, gặp đồ án hay bài tập nhóm đều xử lý mượt mà, điểm số cứ thế tăng trưởng xanh mướt như thị trường lúc hưng phấn!
+              </p>
+              <p>
+                Dưới góc độ phân tích vĩ mô từ một người bạn thân: mong rằng năm mới của Súc sẽ đón nhận thật nhiều cơ hội mới, những trải nghiệm đáng nhớ và thành công rực rỡ. Đặc biệt, chúc cho chỉ số hạnh phúc và tài khoản niềm vui của bạn luôn <strong>tăng trưởng phi mã</strong>, trong khi mọi áp lực, mệt mỏi và <em>deadline</em> thì rơi vào trạng thái <strong>giảm phát kịch sàn</strong>!
+              </p>
+              <p>
+                Dù bình thường hay trêu chọc nhau đủ thứ chuyện trên đời, nhưng phải công nhận một sự thật khách quan đã qua kiểm toán: có một người bạn thân như Súc là khoản đầu tư siêu lợi nhuận và đáng trân trọng nhất. Cảm ơn vì đã luôn đồng hành, sẻ chia và tạo ra biết bao kỷ niệm vui vẻ.
+              </p>
+              <p class="letter-closing">
+                Chúc Súc một ngày 31/10 thật ấm áp, trọn vẹn và một tuổi mới rực rỡ đúng như những gì bạn xứng đáng nhận được! 🥂✨
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           TƯƠNG TÁC 6: BÁNH SINH NHẬT & THỔI NẾN
+           ========================================== -->
+      <section id="section-cake" class="section-block container reveal-on-scroll">
+        <div class="section-header">
+          <span class="section-kicker">05 • GRAND FINALE CEREMONY</span>
+          <h2 class="section-title">Nghi Thức Thổi Nến Mừng Tuổi Mới</h2>
+          <p class="section-subtitle">
+            Hãy nhắm mắt ước một điều thật xịn cho tuổi mới, sau đó nhấn nút <strong>"THỔI NẾN"</strong> bên dưới nhé!
+          </p>
+        </div>
+
+        <div class="cake-ceremony-card">
+          <!-- Bánh sinh nhật thiết kế bằng CSS & SVG -->
+          <div class="cake-illustration" id="cake-illustration" aria-label="Bánh sinh nhật 31/10 của Súc">
+            <!-- Các ngọn nến -->
+            <div class="candles-group">
+              <div class="candle">
+                <div class="flame" id="flame-1"></div>
+                <div class="smoke" id="smoke-1"></div>
+                <div class="candle-wick"></div>
+              </div>
+              <div class="candle candle-center">
+                <div class="flame" id="flame-2"></div>
+                <div class="smoke" id="smoke-2"></div>
+                <div class="candle-wick"></div>
+              </div>
+              <div class="candle">
+                <div class="flame" id="flame-3"></div>
+                <div class="smoke" id="smoke-3"></div>
+                <div class="candle-wick"></div>
+              </div>
+            </div>
+
+            <!-- Tầng bánh trên -->
+            <div class="cake-tier tier-top">
+              <div class="frosting-drip"></div>
+              <span class="cake-text">31 • 10</span>
+            </div>
+
+            <!-- Tầng bánh dưới -->
+            <div class="cake-tier tier-bottom">
+              <div class="frosting-drip"></div>
+              <span class="cake-brand-label">HAPPY BIRTHDAY SÚC</span>
+            </div>
+
+            <!-- Đế bánh -->
+            <div class="cake-plate"></div>
+          </div>
+
+          <div class="cake-controls">
+            <button id="blow-candle-btn" class="btn-primary btn-large" type="button">
+              <span>🌬️</span>
+              <span id="blow-btn-text">THỔI NẾN</span>
+            </button>
+          </div>
+
+          <!-- Thông điệp kết thúc xuất hiện sau khi thổi nến -->
+          <div id="finale-message" class="finale-message hidden-box" aria-live="polite">
+            <div class="finale-icon">🎆🎃🎂</div>
+            <h3>CHÚC MỪNG SINH NHẬT SÚC – 31.10!</h3>
+            <p>
+              Nến đã tắt và điều ước tuổi mới đã chính thức được gửi vào vũ trụ! 
+              Chúc Chủ tịch <strong>SÚC CORP</strong> một năm mới bùng nổ năng lượng, học tập xuất sắc và ngập tràn niềm vui mỗi ngày!
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Chân trang -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-title">SÚC CORP – ANNUAL GROWTH REPORT • SPECIAL EDITION 31.10</p>
+        <p class="footer-sub">Thiết kế riêng dành tặng Súc • Mẹo nhỏ: Thử chạm 5 lần vào logo SÚC CORP ở góc trên cùng nhé!</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ==========================================
+       MODAL CHI TIẾT CHỈ SỐ (DASHBOARD POPUP)
+       ========================================== -->
+  <div id="metric-modal" class="modal-backdrop hidden-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-top-bar">
+        <span class="modal-tag" id="modal-tag">BÁO CÁO KIỂM TOÁN</span>
+        <button id="close-modal-btn" class="modal-close-btn" type="button" aria-label="Đóng cửa sổ">✕</button>
+      </div>
+      <div class="modal-icon-big" id="modal-icon">🤝</div>
+      <h3 id="modal-title" class="modal-title">Friendship Index</h3>
+      <div class="modal-score-pill" id="modal-score">Chỉ số: 99.9% (Tăng trưởng bền vững)</div>
+      <p id="modal-desc" class="modal-desc">
+        Nội dung chi tiết chỉ số.
+      </p>
+      <div class="modal-audit-note" id="modal-note">
+        Đánh giá của Kiểm toán viên Bạn Thân.
+      </div>
+      <button id="modal-ok-btn" class="btn-primary btn-full" type="button">Đã duyệt báo cáo 👍</button>
+    </div>
+  </div>
+
+  <!-- Thông báo Easter Egg bí mật -->
+  <div id="easter-egg-toast" class="easter-egg-toast hidden-toast" role="status" aria-live="polite">
+    <div class="toast-content">
+      <span class="toast-icon">🕵️‍♂️🎃</span>
+      <div>
+        <strong>PHÁT HIỆN QUỸ ĐEN TÌNH BẠN!</strong>
+        <p>Bạn đã tìm ra Easter Egg bí mật! Chúc Súc tuổi mới đi đâu cũng gặp may mắn, ăn ngon mặc đẹp và tiền tiêu rủng rỉnh!</p>
+      </div>
+      <button id="close-toast-btn" class="toast-close" type="button" aria-label="Đóng thông báo">✕</button>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       5. HỆ THỐNG ĐIỀU KHIỂN NHẠC NỀN CỐ ĐỊNH
+       ========================================== -->
+  <aside class="music-widget" id="music-widget" aria-label="Trình phát nhạc nền sinh nhật">
+    <!-- Thẻ Audio HTML5 kết nối đúng đường dẫn assets/birthday-music.mp3 -->
+    <audio id="bg-audio" src="assets/birthday-music.mp3" preload="metadata" loop></audio>
+
+    <div class="music-bar-compact">
+      <button id="music-toggle-btn" class="music-play-btn" type="button" aria-label="Phát hoặc tạm dừng nhạc nền">
+        <span class="disc-icon" id="disc-icon">💿</span>
+        <span class="play-state-badge" id="play-state-icon">▶</span>
+      </button>
+
+      <div class="music-meta" id="music-expand-trigger" role="button" tabindex="0" aria-label="Mở rộng bảng điều khiển nhạc">
+        <span class="music-title">Birthday Soundtrack</span>
+        <span class="music-status" id="music-status-text">Đang tạm dừng</span>
+      </div>
+
+      <button id="music-panel-toggle" class="music-expand-btn" type="button" aria-label="Mở hoặc đóng thanh chỉnh âm lượng">
+        ⚙️
+      </button>
+    </div>
+
+    <!-- Bảng điều khiển mở rộng: Thanh tiến trình & Âm lượng -->
+    <div class="music-controls-drawer" id="music-drawer">
+      <div class="music-control-row">
+        <label for="music-seek" class="control-label">Tiến trình</label>
+        <input id="music-seek" type="range" min="0" max="100" value="0" step="0.5" class="slider-input" aria-label="Thanh tiến trình phát nhạc" />
+        <span id="music-time-label" class="time-label">0:00</span>
+      </div>
+
+      <div class="music-control-row">
+        <label for="music-volume" class="control-label">Âm lượng</label>
+        <input id="music-volume" type="range" min="0" max="1" value="0.7" step="0.05" class="slider-input" aria-label="Thanh điều chỉnh âm lượng" />
+        <span id="volume-percent-label" class="time-label">70%</span>
+      </div>
+
+      <p id="music-fallback-note" class="music-fallback-note">
+        Nguồn nhạc: <code>assets/birthday-music.mp3</code>
+      </p>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

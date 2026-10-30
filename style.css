@@ -1,0 +1,1785 @@
+/* ==========================================================================
+   SÚC CORP – ANNUAL GROWTH REPORT (31.10 EDITION)
+   Thiết kế: Mobile-First, Responsive, Halloween + Economic Dashboard
+   Bảng màu: Đen than (#12131a), Cam bí ngô (#ff7b29), Tím lavender (#b497ff), Trắng kem (#fdf8f2)
+   ========================================================================== */
+
+:root {
+  --bg-charcoal: #12131a;
+  --bg-card: #1b1d29;
+  --bg-card-elevated: #232636;
+  --pumpkin: #ff7b29;
+  --pumpkin-hover: #ff924d;
+  --pumpkin-glow: rgba(255, 123, 41, 0.35);
+  --lavender: #b497ff;
+  --lavender-soft: rgba(180, 151, 255, 0.18);
+  --cream: #fdf8f2;
+  --cream-muted: #c7c3d4;
+  --green-up: #38e596;
+  --border-subtle: rgba(253, 248, 242, 0.12);
+  --shadow-soft: 0 14px 36px rgba(0, 0, 0, 0.45);
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-main: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Reset & Chống tràn ngang trên mọi thiết bị di động */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--bg-charcoal);
+  color: var(--cream);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+body.locked-scroll {
+  overflow: hidden;
+}
+
+img,
+svg,
+canvas {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+/* Canvas Confetti */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Nền trang trí chuyển động nhẹ */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.25;
+}
+
+.orb-orange {
+  width: 280px;
+  height: 280px;
+  background: var(--pumpkin);
+  top: -60px;
+  right: -80px;
+}
+
+.orb-lavender {
+  width: 300px;
+  height: 300px;
+  background: var(--lavender);
+  bottom: 5%;
+  left: -100px;
+}
+
+.floating-symbol {
+  position: absolute;
+  font-size: 1.4rem;
+  opacity: 0.14;
+  animation: floatSlow 9s ease-in-out infinite;
+}
+
+.sym-1 { top: 14%; left: 8%; animation-delay: 0s; }
+.sym-2 { top: 28%; right: 10%; animation-delay: 2s; }
+.sym-3 { top: 58%; left: 6%; animation-delay: 4s; }
+.sym-4 { top: 75%; right: 12%; animation-delay: 1.5s; }
+.sym-5 { top: 42%; left: 85%; animation-delay: 3s; }
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(8deg); }
+}
+
+/* ==========================================================================
+   CONTAINER & TYPOGRAPHY CHUNG (MOBILE-FIRST)
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.15rem;
+  position: relative;
+  z-index: 2;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--pumpkin), var(--lavender));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.highlight-orange {
+  color: var(--pumpkin);
+}
+
+.text-green {
+  color: var(--green-up);
+}
+
+.text-lavender {
+  color: var(--lavender);
+}
+
+/* Nút bấm chuẩn Touch-Friendly (tối thiểu 48px chiều cao) */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 50px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pumpkin), #ff5500);
+  color: var(--cream);
+  box-shadow: 0 8px 24px var(--pumpkin-glow);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: linear-gradient(135deg, var(--pumpkin-hover), var(--pumpkin));
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+.btn-secondary {
+  background: rgba(180, 151, 255, 0.14);
+  color: var(--lavender);
+  border: 1px solid rgba(180, 151, 255, 0.35);
+}
+
+.btn-secondary:active {
+  transform: scale(0.96);
+}
+
+.btn-large {
+  width: 100%;
+  max-width: 320px;
+  font-size: 1.05rem;
+}
+
+.btn-small {
+  min-height: 42px;
+  padding: 0.5rem 1rem;
+  font-size: 0.88rem;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 1: MÀN HÌNH CHÀO MỪNG (WELCOME SCREEN)
+   ========================================================================== */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: radial-gradient(circle at top, #241e38 0%, var(--bg-charcoal) 72%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  transition: opacity 0.65s ease, visibility 0.65s ease, transform 0.65s ease;
+}
+
+.welcome-screen.exit-screen {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(27, 29, 41, 0.88);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.35rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.welcome-moon-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+
+.halloween-moon {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff5d6, #ffb347 70%, #e07a16 100%);
+  box-shadow: 0 0 35px rgba(255, 165, 50, 0.55);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.moon-crater {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(210, 115, 20, 0.25);
+}
+
+.moon-crater.c1 { width: 16px; height: 16px; top: 18px; left: 20px; }
+.moon-crater.c2 { width: 11px; height: 11px; bottom: 20px; right: 22px; }
+
+.moon-bat {
+  font-size: 1.65rem;
+  animation: batFly 3.2s ease-in-out infinite;
+}
+
+@keyframes batFly {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50% { transform: translateY(-6px) rotate(8deg); }
+}
+
+.event-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 123, 41, 0.14);
+  border: 1px solid rgba(255, 123, 41, 0.4);
+  color: var(--pumpkin);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.85rem;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pumpkin);
+  box-shadow: 0 0 8px var(--pumpkin);
+  animation: pulseDot 1.5s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+.corp-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--lavender);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.welcome-title {
+  font-size: clamp(1.65rem, 6vw, 2.35rem);
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 0.9rem;
+}
+
+.welcome-desc {
+  color: var(--cream-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.15rem;
+}
+
+.ticker-preview {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--green-up);
+  background: rgba(0, 0, 0, 0.28);
+  padding: 0.55rem 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 1.4rem;
+}
+
+.welcome-note {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--cream-muted);
+}
+
+/* ==========================================================================
+   HEADER & STOCK TICKER
+   ========================================================================== */
+.hidden-content {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.visible-content {
+  opacity: 1;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(18, 19, 26, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  gap: 0.75rem;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: none;
+  border: none;
+  color: var(--cream);
+  cursor: pointer;
+  text-align: left;
+  padding: 0.25rem 0.4rem;
+  border-radius: 10px;
+}
+
+.brand-logo:active {
+  transform: scale(0.95);
+}
+
+.brand-icon {
+  font-size: 1.5rem;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.brand-code {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--pumpkin);
+}
+
+.quick-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.quick-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-nav a {
+  color: var(--cream-muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.quick-nav a:hover,
+.quick-nav a:active {
+  color: var(--cream);
+  background: rgba(255, 123, 41, 0.16);
+}
+
+.stock-ticker-bar {
+  background: #0d0e14;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0.38rem 0;
+}
+
+.ticker-track {
+  display: inline-flex;
+  gap: 2.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--cream-muted);
+  animation: tickerSlide 26s linear infinite;
+}
+
+@keyframes tickerSlide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   HERO SECTION & SECTION CHUNG
+   ========================================================================== */
+.hero-section {
+  padding-top: 2.2rem;
+  padding-bottom: 2rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.tag-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--lavender);
+  background: var(--lavender-soft);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.hero-heading {
+  font-size: clamp(1.75rem, 5.5vw, 2.75rem);
+  line-height: 1.2;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-lead {
+  color: var(--cream-muted);
+  font-size: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.hero-stats-mini {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.mini-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mini-label {
+  font-size: 0.75rem;
+  color: var(--cream-muted);
+  font-family: var(--font-mono);
+}
+
+.mini-val {
+  font-size: 0.92rem;
+  font-family: var(--font-mono);
+}
+
+.executive-card {
+  background: linear-gradient(160deg, var(--bg-card-elevated), var(--bg-card));
+  border: 1px solid rgba(255, 123, 41, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.3rem;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.exec-card-header {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--cream-muted);
+  margin-bottom: 1.1rem;
+}
+
+.exec-badge {
+  color: var(--pumpkin);
+  font-weight: 700;
+}
+
+.exec-avatar-wrap {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1rem;
+}
+
+.exec-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 123, 41, 0.3), rgba(180, 151, 255, 0.2));
+  border: 2px solid var(--pumpkin);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.7rem;
+}
+
+.exec-orbit-star {
+  position: absolute;
+  bottom: 0;
+  right: -4px;
+  font-size: 1.3rem;
+}
+
+.exec-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.exec-role {
+  font-size: 0.88rem;
+  color: var(--lavender);
+  margin-bottom: 1.2rem;
+}
+
+.exec-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.28);
+  padding: 0.85rem 0.5rem;
+  border-radius: 14px;
+}
+
+.exec-metrics-row small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--cream-muted);
+}
+
+.exec-metrics-row strong {
+  font-size: 0.9rem;
+  color: var(--cream);
+}
+
+/* Section chung */
+.section-block {
+  padding-top: 2.8rem;
+  padding-bottom: 2.2rem;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--pumpkin);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+}
+
+.section-title {
+  font-size: clamp(1.45rem, 4.5vw, 2.15rem);
+  font-weight: 800;
+  margin-bottom: 0.65rem;
+}
+
+.section-subtitle {
+  color: var(--cream-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 2: BẢNG BÁO CÁO SÚC CORP (DASHBOARD CARDS)
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.metric-card:hover,
+.metric-card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--pumpkin);
+  box-shadow: 0 12px 28px rgba(255, 123, 41, 0.16);
+  outline: none;
+}
+
+.metric-card:active {
+  transform: scale(0.98);
+}
+
+.metric-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.metric-icon {
+  font-size: 1.65rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-trend {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+}
+
+.metric-trend.up {
+  color: var(--green-up);
+  background: rgba(56, 229, 150, 0.12);
+}
+
+.metric-name {
+  font-size: 1.05rem;
+  color: var(--cream-muted);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.metric-value-wrap {
+  margin-bottom: 0.75rem;
+}
+
+.metric-counter {
+  font-family: var(--font-mono);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--cream);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pumpkin), var(--lavender));
+  border-radius: 999px;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.metric-hint {
+  font-size: 0.82rem;
+  color: var(--lavender);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 3: PHÂN TÍCH THỊ TRƯỜNG (MARKET ANALYSIS)
+   ========================================================================== */
+.market-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.2rem;
+}
+
+.market-tab {
+  min-height: 50px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  color: var(--cream-muted);
+  padding: 0.7rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: 0.86rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.2s ease;
+}
+
+.market-tab .tab-code {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  opacity: 0.7;
+}
+
+.market-tab.active {
+  background: linear-gradient(135deg, rgba(255, 123, 41, 0.22), rgba(180, 151, 255, 0.22));
+  border-color: var(--pumpkin);
+  color: var(--cream);
+  box-shadow: 0 6px 18px rgba(255, 123, 41, 0.2);
+}
+
+.market-display-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.market-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--pumpkin);
+  background: rgba(255, 123, 41, 0.14);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.75rem;
+}
+
+.market-heading {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+}
+
+.market-description {
+  color: var(--cream-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.market-list {
+  list-style: none;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.market-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.92rem;
+  color: var(--cream);
+}
+
+.market-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--lavender);
+}
+
+.chart-box {
+  background: #141620;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cream-muted);
+  margin-bottom: 0.6rem;
+}
+
+.chart-live-tag {
+  color: var(--green-up);
+}
+
+.econ-svg-chart {
+  width: 100%;
+  height: auto;
+}
+
+.chart-footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--cream-muted);
+  margin-top: 0.4rem;
+}
+
+.chart-footer .active-q {
+  color: var(--pumpkin);
+  font-weight: 700;
+}
+
+.swipe-tip {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--cream-muted);
+  margin-top: 0.65rem;
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 4: MINI GAME GIẢI CỨU SINH NHẬT
+   ========================================================================== */
+.game-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem;
+}
+
+.game-hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1rem;
+}
+
+.hud-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--cream-muted);
+}
+
+.hud-count {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  color: var(--pumpkin);
+}
+
+.star-slots {
+  display: flex;
+  gap: 0.45rem;
+  font-size: 1.4rem;
+}
+
+.star-slot {
+  color: rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.star-slot.collected {
+  color: #ffd166;
+  transform: scale(1.2);
+}
+
+.game-status-msg {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--lavender);
+  margin-bottom: 1.1rem;
+  min-height: 1.5em;
+}
+
+.pumpkin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.pumpkin-cell {
+  aspect-ratio: 1 / 1;
+  min-height: 82px;
+  background: var(--bg-card-elevated);
+  border: 1px solid rgba(255, 123, 41, 0.28);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  user-select: none;
+}
+
+.pumpkin-cell:hover {
+  border-color: var(--pumpkin);
+}
+
+.pumpkin-cell:active {
+  transform: scale(0.92);
+}
+
+.pumpkin-cell .cell-emoji {
+  font-size: 2rem;
+  transition: transform 0.25s ease;
+}
+
+.pumpkin-cell .cell-label {
+  font-size: 0.7rem;
+  color: var(--cream-muted);
+  font-family: var(--font-mono);
+}
+
+.pumpkin-cell.revealed-star {
+  background: rgba(255, 123, 41, 0.22);
+  border-color: #ffd166;
+  box-shadow: 0 0 18px rgba(255, 209, 102, 0.3);
+}
+
+.pumpkin-cell.revealed-decoy {
+  background: rgba(180, 151, 255, 0.12);
+  border-color: rgba(180, 151, 255, 0.35);
+}
+
+.hidden-box {
+  display: none;
+}
+
+.mission-reward-box {
+  margin-top: 1.5rem;
+  background: linear-gradient(145deg, rgba(255, 123, 41, 0.16), rgba(180, 151, 255, 0.16));
+  border: 1px solid var(--pumpkin);
+  border-radius: 16px;
+  padding: 1.35rem;
+  text-align: center;
+  animation: popReveal 0.5s ease forwards;
+}
+
+.reward-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--green-up);
+  margin-bottom: 0.5rem;
+}
+
+.reward-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.reward-text {
+  font-size: 0.95rem;
+  color: var(--cream);
+}
+
+@keyframes popReveal {
+  0% { opacity: 0; transform: translateY(12px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 5: HỘP QUÀ BÍ MẬT & LỜI CHÚC
+   ========================================================================== */
+.gift-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gift-box-trigger {
+  background: none;
+  border: none;
+  color: var(--cream);
+  cursor: pointer;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  touch-action: manipulation;
+}
+
+.gift-sparkles {
+  display: flex;
+  gap: 1.2rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+  animation: floatSlow 3.5s ease-in-out infinite;
+}
+
+.gift-box-visual {
+  width: 150px;
+  height: 140px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: giftPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes giftPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.04) rotate(-2deg); }
+  75% { transform: scale(1.04) rotate(2deg); }
+}
+
+.gift-lid {
+  width: 150px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--pumpkin), #e05300);
+  border-radius: 8px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gift-bow {
+  width: 48px;
+  height: 22px;
+  border: 5px solid var(--lavender);
+  border-radius: 999px;
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.gift-body {
+  width: 136px;
+  height: 100px;
+  background: linear-gradient(180deg, #2b2347, #1d1833);
+  border: 2px solid var(--pumpkin);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gift-ribbon-v {
+  width: 24px;
+  height: 100%;
+  background: var(--lavender);
+  opacity: 0.85;
+}
+
+.gift-tag {
+  position: absolute;
+  background: var(--cream);
+  color: var(--bg-charcoal);
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.gift-box-visual.opened {
+  animation: none;
+}
+
+.gift-box-visual.opened .gift-lid {
+  transform: translateY(-32px) rotate(-14deg);
+}
+
+.gift-cta-text {
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--pumpkin);
+  font-size: 1rem;
+}
+
+/* Thư chúc mừng sinh nhật */
+.secret-letter {
+  width: 100%;
+  max-width: 740px;
+  margin-top: 1.5rem;
+  background: linear-gradient(165deg, #211f33, #181924);
+  border: 1px solid rgba(180, 151, 255, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.3rem;
+  box-shadow: var(--shadow-soft);
+  animation: popReveal 0.65s ease forwards;
+}
+
+.letter-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--lavender);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px dashed var(--border-subtle);
+  margin-bottom: 1.1rem;
+}
+
+.letter-stamp {
+  color: var(--pumpkin);
+  font-weight: 700;
+}
+
+.letter-greeting {
+  font-size: 1.3rem;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+.letter-body {
+  display: grid;
+  gap: 0.95rem;
+  color: var(--cream);
+  font-size: 0.98rem;
+}
+
+.letter-closing {
+  color: var(--pumpkin);
+  font-weight: 700;
+  margin-top: 0.35rem;
+}
+
+/* ==========================================================================
+   TƯƠNG TÁC 6: BÁNH SINH NHẬT & THỔI NẾN
+   ========================================================================== */
+.cake-ceremony-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.2rem;
+  text-align: center;
+}
+
+.cake-illustration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto 1.8rem;
+  max-width: 280px;
+}
+
+.candles-group {
+  display: flex;
+  gap: 1.6rem;
+  align-items: flex-end;
+  margin-bottom: -2px;
+  z-index: 3;
+}
+
+.candle {
+  width: 14px;
+  height: 44px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--cream),
+    var(--cream) 5px,
+    var(--lavender) 5px,
+    var(--lavender) 10px
+  );
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.candle-center {
+  height: 52px;
+}
+
+.candle-wick {
+  width: 2px;
+  height: 7px;
+  background: #444;
+  position: absolute;
+  top: -7px;
+}
+
+.flame {
+  width: 14px;
+  height: 22px;
+  background: radial-gradient(circle at 50% 70%, #fff, #ffcc00 55%, #ff6600 95%);
+  border-radius: 50% 50% 35% 35%;
+  position: absolute;
+  top: -28px;
+  box-shadow: 0 0 18px #ff9900;
+  animation: flickerFlame 0.9s ease-in-out infinite alternate;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.flame.extinguished {
+  opacity: 0;
+  transform: scale(0.2);
+}
+
+@keyframes flickerFlame {
+  0% { transform: scale(1) rotate(-2deg); }
+  100% { transform: scale(1.08) rotate(3deg); }
+}
+
+.smoke {
+  width: 8px;
+  height: 24px;
+  position: absolute;
+  top: -32px;
+  border-radius: 50%;
+  background: rgba(200, 200, 220, 0.55);
+  filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.smoke.puff-active {
+  animation: smokeRise 2.2s ease-out forwards;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.85; transform: translateY(0) scale(0.8); }
+  100% { opacity: 0; transform: translateY(-38px) scale(2.2); }
+}
+
+.cake-tier {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.tier-top {
+  width: 165px;
+  height: 58px;
+  background: linear-gradient(180deg, #3c2d5c, #2a1f42);
+  border: 2px solid var(--lavender);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+}
+
+.tier-bottom {
+  width: 225px;
+  height: 70px;
+  background: linear-gradient(180deg, #ff7b29, #d95b12);
+  border: 2px solid #ffa366;
+  border-radius: 12px 12px 6px 6px;
+}
+
+.frosting-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: var(--cream);
+  border-radius: 0 0 10px 10px;
+  opacity: 0.9;
+}
+
+.cake-text {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--cream);
+  margin-top: 8px;
+}
+
+.cake-brand-label {
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--bg-charcoal);
+  background: var(--cream);
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  margin-top: 10px;
+}
+
+.cake-plate {
+  width: 256px;
+  height: 12px;
+  background: var(--cream-muted);
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.finale-message {
+  margin-top: 1.6rem;
+  background: rgba(56, 229, 150, 0.1);
+  border: 1px solid var(--green-up);
+  border-radius: 16px;
+  padding: 1.4rem;
+  animation: popReveal 0.55s ease forwards;
+}
+
+.finale-icon {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+}
+
+.finale-message h3 {
+  color: var(--green-up);
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   MODAL & EASTER EGG TOAST
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(10, 11, 16, 0.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.15rem;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.hidden-modal {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--pumpkin);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+}
+
+.modal-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.modal-tag {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--pumpkin);
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--cream);
+  cursor: pointer;
+}
+
+.modal-icon-big {
+  font-size: 2.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.modal-title {
+  font-size: 1.35rem;
+  margin-bottom: 0.45rem;
+}
+
+.modal-score-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--green-up);
+  background: rgba(56, 229, 150, 0.12);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.modal-desc {
+  color: var(--cream);
+  font-size: 0.95rem;
+  margin-bottom: 0.95rem;
+}
+
+.modal-audit-note {
+  background: rgba(0, 0, 0, 0.26);
+  border-left: 3px solid var(--lavender);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: var(--cream-muted);
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+/* Easter Egg Toast */
+.easter-egg-toast {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2rem);
+  max-width: 460px;
+  z-index: 1500;
+  background: linear-gradient(135deg, #2b2146, #1d1829);
+  border: 1px solid var(--lavender);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hidden-toast {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -20px);
+}
+
+.toast-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.86rem;
+}
+
+.toast-icon {
+  font-size: 1.6rem;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  color: var(--cream-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+/* ==========================================================================
+   5. HỆ THỐNG ĐIỀU KHIỂN NHẠC NỀN CỐ ĐỊNH (MOBILE-FRIENDLY)
+   ========================================================================== */
+.music-widget {
+  position: fixed;
+  bottom: 0.9rem;
+  right: 0.9rem;
+  left: 0.9rem;
+  max-width: 350px;
+  margin-left: auto;
+  z-index: 900;
+  background: rgba(24, 26, 38, 0.95);
+  border: 1px solid rgba(255, 123, 41, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 0.55rem 0.7rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.music-bar-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.music-play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--pumpkin), #e05500);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.disc-icon {
+  font-size: 1.35rem;
+  display: inline-block;
+}
+
+.disc-icon.spinning {
+  animation: spinDisc 3.5s linear infinite;
+}
+
+@keyframes spinDisc {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.play-state-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg-charcoal);
+  border: 1px solid var(--pumpkin);
+  font-size: 0.58rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-meta {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.music-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-status {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--green-up);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-expand-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--cream);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.music-controls-drawer {
+  display: none;
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.music-controls-drawer.open {
+  display: block;
+}
+
+.music-control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.control-label {
+  font-size: 0.72rem;
+  color: var(--cream-muted);
+  width: 62px;
+  flex-shrink: 0;
+}
+
+.slider-input {
+  flex: 1;
+  accent-color: var(--pumpkin);
+  cursor: pointer;
+}
+
+.time-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cream-muted);
+  width: 38px;
+  text-align: right;
+}
+
+.music-fallback-note {
+  font-size: 0.68rem;
+  color: var(--cream-muted);
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+/* Footer */
+.site-footer {
+  padding: 2.5rem 0 6.5rem;
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.footer-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--lavender);
+  margin-bottom: 0.35rem;
+}
+
+.footer-sub {
+  font-size: 0.8rem;
+  color: var(--cream-muted);
+}
+
+/* Scroll Reveal */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (TABLET >= 768px & DESKTOP >= 1024px)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .hero-stats-mini {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .mini-stat {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .market-tabs {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .market-display-card {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .game-hud {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 2.5rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tôn trọng cài đặt giảm chuyển động (prefers-reduced-motion) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
