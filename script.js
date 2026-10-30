@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: '⚡',
       title: 'Energy Index (Chỉ Số Năng Lượng)',
       score: '96.5% • Nguồn pin bền bỉ',
-      desc: 'Khả năng cân bằng giữa việc học đại học ngành Kinh tế, hoạt động cá nhân và những buổi tụ tập bạn bè mà vẫn giữ vững thần thái tươi tỉnh.',
+      desc: 'Khả năng cân bằng giữa việc học, hoạt động cá nhân và những buổi tụ tập bạn bè mà vẫn giữ vững thần thái tươi tỉnh.',
       note: 'Khuyến nghị: Bổ sung trà sữa, đồ ăn ngon và giấc ngủ chất lượng để duy trì hiệu suất.'
     },
     growth: {
       icon: '📚',
       title: 'Personal Growth (Tăng Trưởng Cá Nhân)',
       score: '+250% • Nền tảng Kinh tế vững chắc',
-      desc: 'Tốc độ tích lũy kiến thức ngành Kinh tế, tư duy sắc bén, kỹ năng giải quyết vấn đề và sự trưởng thành vượt bậc qua từng học kỳ.',
+      desc: 'Tốc độ tích lũy kiến thức, tư duy sắc bén, kỹ năng giải quyết vấn đề và sự trưởng thành vượt bậc qua từng học kỳ.',
       note: 'Triển vọng: Ứng viên sáng giá cho mọi cơ hội lớn trong tương lai gần.'
     },
     market: {
@@ -58,9 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'SUPPLY: Những điều tốt đẹp Súc mang đến',
       description: 'Trong nền kinh tế tình bạn, Súc luôn là nguồn cung dồi dào những năng lượng tích cực, sự nhiệt tình và những pha tấu hài đúng lúc giúp giải cứu mọi cuộc trò chuyện khỏi suy thoái.',
       items: [
-        'Cung ứng không giới hạn những tiếng cười sảng khoái và sự lắng nghe chân thành.',
-        'Tác phong bạn thân chất lượng cao: có mặt đúng lúc, tâm lý và cực kỳ đáng tin cậy.',
-        'Mang lại hiệu ứng lan tỏa niềm vui cho mọi người xung quanh bất kể mùa thi cử.'
+        'Cung ứng không giới hạn những tiếng cười sảng khoái và sự báo vô cùng chân thành.',
+        'Tác phong bạn thân chất lượng cao: có mặt lúc đúng giờ lúc sai giờ, tâm lý và cực kỳ khó đáng tin cậy.',
+        'Mang lại hiệu ứng lan tỏa niềm vui cho mọi người xung quanh bằng những pha tấu hài.'
       ],
       chartTitle: 'BIỂU ĐỒ TĂNG TRƯỞNG NGUỒN CUNG',
       linePath: 'M20,130 C90,115 140,85 200,60 C245,40 275,25 300,18',
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heading: 'DEMAND: Những điều Súc xứng đáng nhận được',
       description: 'Theo quy luật cân bằng thị trường, với tất cả sự cố gắng và tử tế của mình, lực cầu những điều tốt đẹp dành cho Súc trong tuổi mới đang ở mức cao kỷ lục.',
       items: [
-        'Sức khỏe dồi dào, tinh thần thoải mái và điểm số ngành Kinh tế luôn đạt kỳ vọng cao.',
+        'Sức khỏe dồi dào, tinh thần thoải mái và điểm số luôn đạt kỳ vọng cao.',
         'Những người bạn tốt, những cơ hội thực tập và trải nghiệm đại học thật rực rỡ.',
         'Deadline giảm phát về mức tối thiểu, thời gian tận hưởng cuộc sống tăng tối đa.'
       ],
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       description: 'Hội đồng phân tích chiến lược đánh giá triển vọng dài hạn của SÚC CORP ở mức Tích Cực Mạnh (Strong Bullish) trên mọi phương diện.',
       items: [
         'Ngắn hạn: Đón tuổi mới ngày 31/10 ngập tràn lời chúc, quà cáp và niềm vui.',
-        'Trung hạn: Chinh phục xuất sắc các môn chuyên ngành Kinh tế và mục tiêu cá nhân.',
+        'Trung hạn: Chinh phục xuất sắc các môn chuyên ngành và mục tiêu cá nhân.',
         'Dài hạn: Luôn giữ vững phong độ, thành công trên con đường đã chọn và tình bạn bền chặt.'
       ],
       chartTitle: 'DỰ BÁO TĂNG TRƯỞNG DÀI HẠN',
